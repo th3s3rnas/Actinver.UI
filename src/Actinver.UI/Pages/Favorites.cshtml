@@ -1,0 +1,64 @@
+﻿@page
+@model FavoritesModel
+@{
+    ViewData["Title"] = "Mis Favoritos";
+}
+<h1>@ViewData["Title"]</h1>
+<p>Mis cocktails favoritos</p>
+
+<div class="row" onload="GetMyFavorites()">
+    <div class="col s12 m7" id="containerFavorites">
+        
+    </div>
+</div>
+
+<script>
+    function AddToMyFavorites(cocktail) {
+        debugger;
+        var listCocktails = localStorage.getItem('listCocktails');
+        console.log("listCocktails : " + listCocktails);
+        console.log("listCocktails typeof: " + typeof listCocktails);
+        if (listCocktails) {
+            listCocktails = JSON.parse(listCocktails);
+            console.log("Validando si existe el cocktail.");
+            if (!(listCocktails.indexOf(cocktail) !== -1)) {
+                //save
+                console.log("No existe en mis favoritos, agregando a la lista.");
+                listCocktails.push(cocktail);
+            }
+            else
+                console.log("Ya existe el cocktail.");
+        }
+        else {
+            console.log("No existe lista de favoritos, creando y agregando cocktail.");
+            listCocktails = [cocktail];
+        }
+
+        localStorage.setItem('listCocktails', JSON.stringify(listCocktails));
+        console.log("Proceso finalizado.");
+    }
+
+    function GetMyFavorites() {
+        debugger;
+        var listCocktails = localStorage.getItem('listCocktails');
+        if (listCocktails) {
+
+            var ids = "";
+            listCocktails = JSON.parse(listCocktails);
+            listCocktails.forEach(function (valor, indice, array) {
+                ids += valor + ",";
+            });
+            console.log(ids);
+
+            $.ajax({
+                type: "GET",
+                url: "https://localhost:44328/Cocktail/byIds/" + ids,
+                success: function (datos) {
+                    console.log(datos);
+                },
+                dataType: "json"
+            });
+        }
+       
+    }
+</script>

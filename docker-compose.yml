@@ -1,0 +1,8 @@
+version: '2'
+services:
+    development:
+        build: . 
+        environment:
+            - ASPNETCORE_ENVIRONMENT=Development
+        ports:
+            - "9903:80"

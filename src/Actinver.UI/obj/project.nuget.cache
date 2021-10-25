@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "khxzCtGOUEN3mwy/M8YholCnJ1pw9P2MscPRms6J4vrlF8FTmexczwb90xFEuGvM55lrpAvKC/DvujPU4lsfbQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\ivansernas\\source\\repos\\Actinver.UI\\src\\Actinver.UI\\Actinver.UI.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\ivansernas\\.nuget\\packages\\microsoft.visualstudio.azure.containers.tools.targets\\1.11.1\\microsoft.visualstudio.azure.containers.tools.targets.1.11.1.nupkg.sha512",
+    "C:\\Users\\ivansernas\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512"
+  ],
+  "logs": []
+}

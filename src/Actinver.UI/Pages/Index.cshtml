@@ -1,0 +1,86 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Buscador";
+}
+
+<h3 class="display-4">Buscador de cocktail's</h3>
+<div class="row">
+
+    @*<p><a class="waves-effect waves-light btn" href="/">Buscar</a></p>*@
+
+    <form method="post">
+        <div class="input-field col s12">
+            <input placeholder="Ingrese un valor a buscar" type="text" class="validate" asp-for="ValueInput" id="ValueInput">
+        </div>
+
+        <div class="input-field col s12">
+            @foreach (var filter in Model.Filters)
+            {
+                <p>
+                    <label>
+                        <input type="radio" asp-for="Filter" value="@filter" />
+                        <span>@filter</span>
+                    </label>
+                </p>
+            }
+        </div>
+        <br />
+        <input id="Submit1" type="submit" value="Buscar" class="waves-effect waves-light btn" />
+
+    </form>
+</div>
+
+<p>Resultados para la búsqueda : @Model.FiltersString</p>
+
+<div class="row">
+    <div class="col s12 m7">
+        @foreach (var cocktail in Model.CocktailEntityList)
+        {
+
+            <div class="card">
+                <div class="card-image">
+                    <img src="@cocktail.strDrinkThumb">
+                    <span class="card-title">@cocktail.strDrink</span>
+                </div>
+                <div class="card-content">
+                    <p>@cocktail.strInstructions</p>
+                </div>
+                <div class="card-action">
+                    <a href="#"><p onclick="AddToMyFavorites(@cocktail.idDrink)">Agregar a Mis Favoritos</p></a>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<script>
+    function AddToMyFavorites(cocktail) {
+        debugger;
+        var listCocktails = localStorage.getItem('listCocktails');
+        console.log("listCocktails : " + listCocktails);
+        console.log("listCocktails typeof: " + typeof listCocktails);
+        if (listCocktails) {
+            listCocktails = JSON.parse(listCocktails);
+            console.log("Validando si existe el cocktail.");
+            if (!(listCocktails.indexOf(cocktail) !== -1)) {
+                //save
+                console.log("No existe en mis favoritos, agregando a la lista.");
+                listCocktails.push(cocktail);
+            }
+            else
+                console.log("Ya existe el cocktail.");
+        }
+        else {
+            console.log("No existe lista de favoritos, creando y agregando cocktail.");
+            listCocktails = [cocktail];
+        }
+
+        localStorage.setItem('listCocktails', JSON.stringify(listCocktails));
+        console.log("Proceso finalizado.");
+    }
+
+    function DeleteToMyFavorites(cocktail) {
+        debugger;
+        alert(cocktail);
+    }
+</script>
